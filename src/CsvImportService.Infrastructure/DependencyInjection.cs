@@ -22,6 +22,10 @@ public static class DependencyInjection
         };
 
         services.AddSingleton(kafkaConfig);
+
+        // Register Kafka producer service so CsvJobProcessor can be constructed
+        services.AddSingleton<KafkaProducerService>();
+
         services.AddScoped<ICsvJobProcessor, CsvJobProcessor>();
 
         services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(
